@@ -115,7 +115,6 @@ components:
         code:
           description: The code for the login of the user
           type: string
-          format: number
       required:
         - code
     HealthCheckResponse:
