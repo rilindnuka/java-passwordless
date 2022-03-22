@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: java-passwordless
+  ##########################################
+  ##   LOCAL PostgreSQL DB Configuration  ##
+  ##########################################
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/pwless
+    username: pwless
+    password: pwless
+  jpa:
+    hibernate:
+      ddl-auto: validate
