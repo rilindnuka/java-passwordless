@@ -1,0 +1,129 @@
+openapi: 3.0.0
+
+info:
+  version: 0.0.1
+  title: Java passwordless API
+  description: The API documentation for passwordless login
+
+tags:
+  - name: "Authentication"
+
+
+paths:
+
+  /auth/login:
+    post:
+      summary: This is the login endpoint
+      tags:
+        - "Authentication"
+      description: This is the login endpoint where user posts the email for login
+      operationId: loginWithEmail
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginAttempt"
+      responses:
+        "200":
+          description: |
+            This means email is received correctly,
+            No further information should be given back
+            since it can be agains best security practices
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginAttempt'
+  /auth/authenticate:
+    post:
+      summary: This is the authentication endpoint
+      tags:
+        - "Authentication"
+      description: |
+        This is the authentication endpoint where user posts the email with the code
+        for complete authentication
+      operationId: Authenticate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginWithCode"
+      responses:
+        "200":
+          description: |
+            This means email is received correctly,
+            No further information should be given back
+            since it can be agains best security practices
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+  /auth/health:
+    get:
+      summary: This is the endpoint for checking the auth health
+      tags:
+        - "Authentication"
+      parameters:
+        - $ref: '#/components/parameters/authenticationHeaderRequired'
+      description: |
+        This endpoint is only for testing purposes and should not be used afterwards
+      operationId: checkHealth
+      responses:
+        "200":
+          description: This means its ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheckResponse'
+components:
+  parameters:
+    authenticationHeaderRequired:
+      in: header
+      name: X-Authentication-Key
+      description: uuid key of the authenticated user
+      required: true
+      schema:
+        type: string
+        format: uuid
+  schemas:
+    AuthResponse:
+      description: This is the response model after correct authentication
+      type: object
+      properties:
+        code:
+          description: The authetication code
+          type: string
+          format: uuid
+    LoginAttempt:
+      description: This is the login attempt with email model
+      type: object
+      properties:
+        email:
+          description: The email of the user
+          type: string
+          format: email
+          example: user@example.com
+      required:
+        - email
+    LoginWithCode:
+      allOf:
+        - $ref: '#/components/schemas/LoginAttempt'
+      description: This is the login object with the code with email model
+      type: object
+      properties:
+        code:
+          description: The code for the login of the user
+          type: string
+          format: number
+      required:
+        - code
+    HealthCheckResponse:
+      description: This is the healthcheck object for the authentication
+      type: object
+      properties:
+        email:
+          description: The email of the user
+          type: string
+          format: email
+          example: user@example.com
