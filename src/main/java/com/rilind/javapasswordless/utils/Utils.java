@@ -14,6 +14,6 @@ public class Utils {
     }
 
     public String generateUUID() {
-        return UUID.randomUUID().toString();
+        return UUID.randomUUID().toString().toUpperCase();
     }
 }

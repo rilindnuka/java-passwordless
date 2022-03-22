@@ -94,7 +94,6 @@ components:
         code:
           description: The authetication code
           type: string
-          format: uuid
     LoginAttempt:
       description: This is the login attempt with email model
       type: object
