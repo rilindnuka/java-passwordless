@@ -8,7 +8,7 @@ import java.util.UUID;
 @Component
 public class Utils {
 
-    public String genereateFourDigitCode() {
+    public String generateFourDigitCode() {
         Random random = new Random();
         return String.format("%04d", random.nextInt(10000));
     }
