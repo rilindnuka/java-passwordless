@@ -1,4 +1,4 @@
-package com.rilind.javapasswordless.controllers;
+package com.rilind.javapasswordless.controllers.rest;
 import com.rilind.javapasswordless.api.AuthApi;
 import com.rilind.javapasswordless.models.*;
 import com.rilind.javapasswordless.services.AuthService;
